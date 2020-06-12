@@ -1,4 +1,4 @@
-# static-file-server
+# static_file_server
 
 #### 静态文件服务器程序。
 
