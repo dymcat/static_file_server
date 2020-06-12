@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>推送</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,height=device-height,user-scalable=yes,initial-scale=1,minimum-scale=1,maximum-scale=10"/>
+<meta name="x5-page-mode" content="app"/>
+<meta name="browsermode" content="application"/>
+<meta name="renderer" content="webkit"/>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<meta http-equiv="Cache-Control" content="no-transform"/>
+<style>
+	*{box-sizing:border-box;}
+	html,body,table,input{width:100%;height:100%;margin:0;}
+	body{font-family:等线,宋体,Arial,Tahoma,Verdana;}
+	input[type="button"]{width:100px;}
+	div#log{height:100%;border:solid 1px gray;overflow:auto;}
+	span#cue{float:right;line-height:36px;color:red;}
+</style>
+</head>
+<body>
+	<table>
+		<tr>
+			<td colspan="2" height="36">
+				<input type="button" value="订阅消息" onclick="toOpen();"/>
+				<input type="button" value="免打扰" onclick="toClose();"/>
+				<input type="button" value="清屏" onclick="toClear();"/>
+				<span id="cue">您还未订阅推送服务。</span>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" height="100%"><div id="log"></div></td>
+		</tr>
+		<tr>
+			<td height="36"><input type="text" id="msg"/></td>
+			<td width="100" height="36"><input type="submit" value="发送消息" onclick="toSend();"/></td>
+		</tr>
+	</table>
+</body>
+<script>
+	document.onkeydown=function(event){
+		event=event||window.event;
+		if((event.keyCode||event.which)==13){
+			toSend();
+		}
+	};
+	var cue=document.getElementById("cue");
+	var log=document.getElementById("log");
+	var msg=document.getElementById("msg");
+	var socket=null;
+	function toOpen(){
+		if(window.WebSocket){
+			var url=location.protocol.replace("http","ws")+"//"+location.host;
+			console.log(url);
+			socket=new WebSocket(url);
+			socket.onopen=function(event){
+				log.innerHTML+="WebSocket Opened"+"<br/>";
+				cue.innerHTML="每5秒钟，推送一条消息。";
+			};
+			socket.onclose=function(event){
+				log.innerHTML+="WebSocket Closed"+"<br/>";
+				cue.innerHTML="不再接收消息推送。";
+			};
+			socket.onerror=function(event){
+				log.innerHTML+="WebSocket Error"+"<br/>";
+				cue.innerHTML="无法获取消息推送服务。";
+			};
+			socket.onmessage=function(event){
+				log.innerHTML+=event.data+"<br/>";
+			};
+		}else{
+			cue.innerHTML="浏览器不支持消息推送。";
+		}
+	}
+	function toClose(){
+		if(socket!=null&&socket.readyState==WebSocket.OPEN){
+			socket.close();
+			socket=null;
+		}
+	}
+	function toClear(){
+		log.innerHTML="";
+	}
+	function toSend(){
+		if(socket!=null&&socket.readyState==WebSocket.OPEN){
+			if(msg.value!=""){
+				socket.send(JSON.stringify({
+					"<-<()()>->":"echo>run"
+					,"msg":msg.value
+				}));
+				msg.value="";
+			}
+		}
+	}
+</script>
+</html>

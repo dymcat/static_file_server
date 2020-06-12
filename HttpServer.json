@@ -1,0 +1,162 @@
+{
+	/*HTTP服务器*/
+	http:{
+		status:true
+		,ssl:false
+		,host:null
+		,port:2021
+	}
+	/*HTTPS服务器*/
+	,https:{
+		status:false
+		,ssl:true
+		,host:null
+		,port:20443
+	}
+	/*WEB代理服务器*/
+	,proxy:null
+	/*是否启用Debug模式，该模式会在控制台输出调式信息*/
+	,debug:false
+	/*系统日志输出所在文件夹*/
+	,print:"log"
+	/*国际化配置文件所在文件夹*/
+	,i18n:"i18n"
+	/*MimeType(HTTP响应Content-Type)配置文件路径*/
+	,mime:"mime.ini"
+	/*默认响应Content-Type，此配置不建议变更*/
+	,type:"text/html"
+	/*文本资源字符集*/
+	,charset:"UTF-8"
+	/*移动端标识，请求头域User-Agent中包含以下字符串被认为是移动端请求*/
+	,mobile:"Mobile|Phone|Pad|Pod|IOS|Android|Symbian|BlackBerry"
+	/*加载脚本文件前是否转换语法*/
+	,babel:false
+	/*加载脚本文件后是否立即执行*/
+	,eval:true
+	/*脚本初始化植入代码片段*/
+	,into:null
+	/*客户端保存Session的Cookie有效期，S秒|M分|H时|D天*/
+	,maxage:"2H"
+	/*异步响应超时时间，S秒|M分|H时|D天*/
+	,timeout:"30S"
+	/*WebSocket连接的用户字段名，使连接对象关联到用户ID，如果创建连接时没有附加这个字段，则默认关联到SessionID*/
+	,user:"user"
+	/*首页(默认页面)路径，当URI(URL去除协议://IP|域名:端口之后的部分)为空字符串或/时，会使用这个页面*/
+	,index:"index.html"
+	/*页面小图标静态路径，建议使用ico小图片，也可以在前端页面上加<link href="图片路径" type="image/x-icon" rel="shortcut icon"/>*/
+	,favicon:"favicon.ico"
+	/*错误页面(含通配符，?表示err或错误码)路径*/
+	,err:"err/?.html"
+	/*请求解析方式：nature|script|function|reflect*/
+	,parse:null
+	/*请求Java反射拦截层包名前缀*/
+	,mvc:"com.dymcat.mvc"
+	/*默认代码所在文件夹*/
+	,web:"web"
+	/*静态资源文件夹，如果URI中含有/此配置/，将被视为静态资源*/
+	,at:""
+	/*系统脚本文件所在目录*/
+	,air:"#"
+	/*文件过滤器脚本文件名*/
+	,file:"file"
+	/*文件夹过滤器脚本文件名*/
+	,folder:"folder"
+	/*请求后续处理脚本文件名*/
+	,backup:"backup"
+	/*请求Java反射过滤器方法名*/
+	,filter:"filter"
+	/*URI根路径映射物理路径配置项，"#":true将映射本机文件系统所有根目录*/
+	,source:{
+		"#":false
+		,"":"root"
+		,static:"static"
+		,upload:"upload"
+		,资源库:"C:/WORK/资源库"
+	}
+	/*上传文件时客户端可配置项，这些配置项在页面上使用时，必须放在相应<input type="file"/>的前面才能生效*/
+	,upload:{
+		/*
+		 <!--配置可接收任何文件-->
+		 <input type="hidden" name="_upload_type_item1" value="*"/>
+		 <input type="file" name="item1"/>
+		 <!--配置只接收指定类型的文件-->
+		 <input type="hidden" name="_upload_type_item2" value="jpg|jpeg|png|bmp"/>
+		 <input type="file" name="item2"/>
+		*/
+		type:"_upload_type_"
+		/*
+		 <!--配置最大可接收多大的文件，K|M|G|T-->
+		 <input type="hidden" name="_upload_size_item1" value="5M"/>
+		 <input type="file" name="item1"/>
+		*/
+		,size:"_upload_size_"
+		/*
+		 <!--配置上传权限-->
+		 <input type="hidden" name="_upload_door_item1" value="sys/upload.html"/>
+		 <input type="file" name="item1"/>
+		*/
+		,door:"_upload_door_"
+		/*
+		 <!--上传后，写进磁盘的文件目录-->
+		 <input type="hidden" name="_upload_path_item1" value="upload/@"/>
+		 <input type="file" name="item1"/>
+		*/
+		,path:"_upload_path_"
+		/*
+		 <!--上传后，以原文件名写进磁盘-->
+		 <input type="hidden" name="_upload_name_item1" value=""/>
+		 <input type="file" name="item1"/>
+		 <!--上传后，以指定名称写进磁盘-->
+		 <input type="hidden" name="_upload_name_item2" value="demo.jpg"/>
+		 <input type="file" name="item2"/>
+		*/
+		,name:"_upload_name_"
+		/*
+		 <!--上传后，遇到同名文件，是否覆盖之-->
+		 <input type="hidden" name="_upload_cover_item1" value="false"/>
+		 <input type="file" name="item1"/>
+		*/
+		,cover:"_upload_cover_"
+		/*
+		 <!--上传失败，返回的错误信息，这个不是表单元素，可以放在上传控件的后面-->
+		 <input type="file" name="item1"/>
+		 <div>{{=$._upload_error_item1}}</div>
+		*/
+		,error:"_upload_error_"
+	}
+	/*Netty服务日志级别，null|TRACE|DEBUG|INFO|WARN|ERROR*/
+	,level:null
+	/*Netty服务设定项*/
+	,setup:null
+	/*SslContext*/
+	,context:null
+	/*匹配后台JS文件的最大步骤数*/
+	,maxstep:7
+	/*指定下载时的文件名*/
+	,downname:undefined
+	/*指定下载后客户端缓存时间*/
+	,cacheset:undefined
+	/*文件下载分片大小*/
+	,chunkset:undefined
+	/*创建WebSocket连接的子协议*/
+	,subprotocols:null
+	/*创建WebSocket连接时是否允许扩展*/
+	,allowExtensions:true
+	/*创建WebSocket连接的最大帧有效长度*/
+	,maxFramePayloadLength:undefined
+	/*创建WebSocket连接时是否允许面具不匹配*/
+	,allowMaskMismatch:false
+	/*WebSocket消息*/
+	,push:{
+		/*是否启用 WebSocket消息 这个功能*/
+		status:true
+		/*这个功能相关文件的根目录*/
+		,root:"push"
+		/*默认回调执行脚本文件*/
+		,file:"echo"
+		/*默认回调方法名称*/
+		,func:"run"
+	}
+	/*是否调用浏览器访问首页*/
+	,browser:true
+}
